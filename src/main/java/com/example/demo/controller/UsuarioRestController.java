@@ -103,10 +103,42 @@ public class UsuarioRestController {
 	public Page<Usuario> pageable(@PathVariable Integer page) {
 		int sizePaginas = 4;
 		Pageable pageable = PageRequest.of(page, sizePaginas);
+		Page<Usuario> a = usuarioService.findPaginated(pageable);
 		return usuarioService.findPaginated(pageable);
 
 	}
 
+	@GetMapping("/usuarios/pageBien/{page}")
+	public ResponseEntity<?> pageableBien(@PathVariable Integer page) {
+
+		ResponseEntity<?> result = null;
+
+		Map<String, Object> response = new HashMap<String, Object>();
+		Page<Usuario> usuarios = null;
+		try {
+			int size = 4;
+			Pageable pageable = PageRequest.of(page, size);
+			usuarios = usuarioService.findPaginated(pageable);
+
+		} catch (DataAccessException dae) {
+			response.put("mensaje", "Error en BBDD");
+			response.put("error", dae.getMessage());
+			result = new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+
+		if (null == result) {
+			response.put("mensaje", "Si se han encontrado usuarios.");
+			response.put("content", usuarios.getContent());
+
+			result = new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
+		}
+		return result;
+
+	}
+
+	
 	@GetMapping("/usuarios/pageMal/{page}")
 	public ResponseEntity<?> pageableMal(@PathVariable Integer page) {
 
