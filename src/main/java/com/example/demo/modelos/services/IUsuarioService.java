@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.modelos.entity.Usuario;
 
@@ -18,4 +19,7 @@ public interface IUsuarioService {
 	public Usuario save(Usuario usuario);
 
 	public void delete(Long id);
+
+	public List<Usuario> searchBy(String usuariocode);
+
 }

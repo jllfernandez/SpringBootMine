@@ -52,4 +52,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		usuarioDao.deleteById(id);
 	}
 
+	public List<Usuario> searchBy(String usuariocode) {
+		return (List<Usuario>) usuarioDao.searchBy(usuariocode);
+	}
+
 }

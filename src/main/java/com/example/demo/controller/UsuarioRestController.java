@@ -246,4 +246,31 @@ public class UsuarioRestController {
 
 	}
 
+	@GetMapping("/usuariosByLog/{login}")
+	public ResponseEntity<?> byId(@PathVariable String login) {
+		ResponseEntity<?> result = null;
+
+		Map<String, Object> response = new HashMap<String, Object>();
+		List<Usuario> usuarios = null;
+		try {
+			usuarios = usuarioService.searchBy(login);
+
+		} catch (DataAccessException dae) {
+			response.put("mensaje", "Error en BBDD");
+			response.put("error", dae.getMessage());
+			result = new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+
+		if (null == result) {
+			response.put("mensaje", "Si se han encontrado usuarios.");
+			response.put("content", usuarios);
+
+			result = new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
+		}
+		return result;
+
+	}
+
 }
