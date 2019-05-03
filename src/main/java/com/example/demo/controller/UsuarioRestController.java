@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ import com.example.demo.modelos.entity.Usuario;
 import com.example.demo.modelos.services.IUsuarioService;
 
 @RestController
-//@CrossOrigin(origins = { "http://192.168.4.130:4200" })
+@CrossOrigin(origins = { "http://192.168.4.130:4200" })
 @RequestMapping("/api")
 public class UsuarioRestController {
 
@@ -99,7 +100,15 @@ public class UsuarioRestController {
 	}
 
 	@GetMapping("/usuarios/page/{page}")
-	public ResponseEntity<?> pageable(@PathVariable Integer page) {
+	public Page<Usuario> pageable(@PathVariable Integer page) {
+		int sizePaginas = 4;
+		Pageable pageable = PageRequest.of(page, sizePaginas);
+		return usuarioService.findPaginated(pageable);
+
+	}
+
+	@GetMapping("/usuarios/pageMal/{page}")
+	public ResponseEntity<?> pageableMal(@PathVariable Integer page) {
 
 		ResponseEntity<?> result = null;
 
