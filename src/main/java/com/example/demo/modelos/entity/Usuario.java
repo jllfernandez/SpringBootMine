@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -18,7 +19,9 @@ import javax.validation.constraints.Size;
 public class Usuario implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIOS")
+	//@SequenceGenerator(sequenceName = "SEQ_USUARIOS", allocationSize = 1, name = "SEQ_USUARIOS")
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@NotEmpty(message = " no puede estar vacio")
