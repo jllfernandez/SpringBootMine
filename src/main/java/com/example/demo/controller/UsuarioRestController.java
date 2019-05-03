@@ -167,7 +167,7 @@ public class UsuarioRestController {
 		return respuesta;
 	}
 
-	@PutMapping("/usuarios")
+	@PutMapping("/usuarios/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
 
 		ResponseEntity<?> respuesta = null;
