@@ -13,5 +13,9 @@ public class ClienteRestController {
 	 * @GetMapping("/clientes") public List<Usuario> index() { return
 	 * usuarioService.findAll(); }
 	 */
+	
+	// RestTemplate resTemplate = new ResTemplate();
+	//Employee response = resTemplate.getForObject("http://localhost;8080/employess", Employee.class);
+	//List<Employ>arr = response.getEmployees()
 
 }
